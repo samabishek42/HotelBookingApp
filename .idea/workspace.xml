@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9eb3e2cd-d7e2-45ed-9318-78f0b946a54d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/udo apt install git-filter-repo" beforeDir="false" afterPath="$PROJECT_DIR$/udo apt install git-filter-repo" afterDir="false" />
-    </list>
+    <list default="true" id="9eb3e2cd-d7e2-45ed-9318-78f0b946a54d" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -120,6 +117,7 @@
       <updated>1733807552779</updated>
       <workItem from="1733807553922" duration="3981000" />
       <workItem from="1733817028919" duration="1558000" />
+      <workItem from="1733818665556" duration="1003000" />
     </task>
     <servers />
   </component>
