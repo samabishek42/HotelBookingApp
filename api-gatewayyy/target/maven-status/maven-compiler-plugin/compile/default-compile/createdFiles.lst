@@ -1,0 +1,9 @@
+com\HavenHub\api_gateway\configuration\WebConfig.class
+com\HavenHub\api_gateway\service\MyUserDetailsService.class
+com\HavenHub\api_gateway\ApiGatewayApplication.class
+com\HavenHub\api_gateway\configuration\SecurityConfig.class
+com\HavenHub\api_gateway\Feign\UserInterface.class
+com\HavenHub\api_gateway\service\JWTService.class
+com\HavenHub\api_gateway\entity\HotelUser.class
+com\HavenHub\api_gateway\configuration\JWTFilter.class
+com\HavenHub\api_gateway\DTO\UserPrincipalDTO.class
