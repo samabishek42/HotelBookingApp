@@ -13,11 +13,6 @@ Date:   Mon Dec 9 22:05:38 2024 +0530
  [m
  [m
 [31m-#[m
-[31m-## OAuth2 Client Registration[m
-[31m-#spring.security.oauth2.client.registration.google.client-id=708656180433-9pfcgi05gpjd4chbpnlbdatmq2pi2k6p.apps.googleusercontent.com[m
-[31m-#spring.security.oauth2.client.registration.google.client-secret=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[m
-[31m-#spring.security.oauth2.client.registration.google.scope=openid,profile,email[m
-[31m-#spring.security.oauth2.client.registration.google.redirect-uri=http://localhost:8083/login/oauth2/code/google[m
  [m
  [m
  # Enable detailed security logs (for debugging)[m
@@ -30,10 +25,6 @@ Date:   Mon Dec 9 22:05:38 2024 +0530
  [m
  [m
 [31m-## OAuth2 Client Registration[m
-[31m-#spring.security.oauth2.client.registration.google.client-id=708656180433-9pfcgi05gpjd4chbpnlbdatmq2pi2k6p.apps.googleusercontent.com[m
-[31m-#spring.security.oauth2.client.registration.google.client-secret=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[m
-[31m-#spring.security.oauth2.client.registration.google.scope=openid,profile,email[m
-[31m-#spring.security.oauth2.client.registration.google.redirect-uri=http://localhost:8087/login/oauth2/code/google[m
 [31m-[m
 [31m-[m
 [31m-[m
@@ -49,11 +40,6 @@ Date:   Mon Dec 9 22:05:38 2024 +0530
  [m
  [m
 [31m-#[m
-[31m-## OAuth2 Client Registration[m
-[31m-#spring.security.oauth2.client.registration.google.client-id=708656180433-9pfcgi05gpjd4chbpnlbdatmq2pi2k6p.apps.googleusercontent.com[m
-[31m-#spring.security.oauth2.client.registration.google.client-secret=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[m
-[31m-#spring.security.oauth2.client.registration.google.scope=openid,profile,email[m
-[31m-#spring.security.oauth2.client.registration.google.redirect-uri=http://localhost:8085/login/oauth2/code/google[m
 [31m-#[m
  [m
  # Enable detailed security logs (for debugging)[m
@@ -66,11 +52,6 @@ Date:   Mon Dec 9 22:05:38 2024 +0530
  [m
  [m
  [m
-[31m-#OAuth2 Client Registration[m
-[31m-#spring.security.oauth2.client.registration.google.client-id=708656180433-9pfcgi05gpjd4chbpnlbdatmq2pi2k6p.apps.googleusercontent.com[m
-[31m-#spring.security.oauth2.client.registration.google.client-secret=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[m
-[31m-#spring.security.oauth2.client.registration.google.scope=openid,profile,email[m
-[31m-#spring.security.oauth2.client.registration.google.redirect-uri=http://localhost:8081/login/oauth2/code/google[m
  [m
  # Enable detailed security logs (for debugging)[m
  logging.level.org.springframework.security=DEBUG[m
@@ -82,11 +63,6 @@ Date:   Mon Dec 9 22:05:38 2024 +0530
  [m
  [m
  [m
-[31m-# OAuth2 Client Registration[m
-[31m-spring.security.oauth2.client.registration.google.client-id=708656180433-9pfcgi05gpjd4chbpnlbdatmq2pi2k6p.apps.googleusercontent.com[m
-[31m-spring.security.oauth2.client.registration.google.client-secret=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[m
-[31m-spring.security.oauth2.client.registration.google.scope=openid,profile,email[m
-[31m-spring.security.oauth2.client.registration.google.redirect-uri=http://localhost:8080/login/oauth2/code/google[m
 [31m-[m
 [31m-[m
  [m
