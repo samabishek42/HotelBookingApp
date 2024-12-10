@@ -40,6 +40,7 @@ Date:   Mon Dec 9 22:05:38 2024 +0530
  [m
  [m
 [31m-#[m
+git add service-registry/
 [31m-#[m
  [m
  # Enable detailed security logs (for debugging)[m
