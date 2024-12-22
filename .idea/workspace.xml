@@ -1,22 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="7bd311e2-5b94-4e5f-82f7-1a6547f1fcbb" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotelService/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/HotelService/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HotelService/target/classes/com/HavenHub/hotel_service/entity/Hotel.class" beforeDir="false" afterPath="$PROJECT_DIR$/HotelService/target/classes/com/HavenHub/hotel_service/entity/Hotel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RoomsService/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/RoomsService/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserService/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/UserService/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserService/target/classes/com/HavenHub/user_service/DTO/UserPrincipalDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/UserService/target/classes/com/HavenHub/user_service/DTO/UserPrincipalDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserService/target/classes/com/HavenHub/user_service/service/HotelUserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/UserService/target/classes/com/HavenHub/user_service/service/HotelUserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gatewayyy/target/classes/com/HavenHub/api_gateway/configuration/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/api-gatewayyy/target/classes/com/HavenHub/api_gateway/configuration/SecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gatewayyy/target/classes/com/HavenHub/api_gateway/controller/BookingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/api-gatewayyy/target/classes/com/HavenHub/api_gateway/controller/BookingController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gatewayyy/target/classes/com/HavenHub/api_gateway/controller/HotelUserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/api-gatewayyy/target/classes/com/HavenHub/api_gateway/controller/HotelUserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gatewayyy/target/classes/com/HavenHub/api_gateway/service/JWTService.class" beforeDir="false" afterPath="$PROJECT_DIR$/api-gatewayyy/target/classes/com/HavenHub/api_gateway/service/JWTService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/udo apt install git-filter-repo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gatewayyy/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/api-gatewayyy/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +27,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/HotelBookingApp",
     "node.js.detected.package.eslint": "true",
@@ -65,7 +55,7 @@
       <option name="presentableId" value="Default" />
       <updated>1734867020711</updated>
       <workItem from="1734867021733" duration="80000" />
-      <workItem from="1734867119839" duration="329000" />
+      <workItem from="1734867119839" duration="1425000" />
     </task>
     <servers />
   </component>
