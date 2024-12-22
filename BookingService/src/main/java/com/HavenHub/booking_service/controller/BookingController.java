@@ -1,0 +1,50 @@
+package com.HavenHub.booking_service.controller;
+
+import com.HavenHub.booking_service.DTO.BookingDTO;
+import com.HavenHub.booking_service.entity.Booking;
+import com.HavenHub.booking_service.service.BookingService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.time.LocalDate;
+import java.util.List;
+
+@RestController
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("api/v1/booking")
+public class BookingController {
+
+      @Autowired
+      BookingService bs;
+
+      @PostMapping(path="/save")
+      public ResponseEntity<String> saveBooking(@RequestBody BookingDTO booking){
+            return new ResponseEntity<>(bs.addBooking(booking),HttpStatus.OK);
+      }
+
+      @GetMapping(path = "/getOne/{user_id}")
+      public ResponseEntity<List<Booking>> getBookedRoomsByUser(@PathVariable("user_id") int user_id){
+            List<Booking> list= bs.bookedRoomsByUser(user_id);
+            if(list.isEmpty())
+                  return new ResponseEntity<>(list, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(list,HttpStatus.OK);
+      }
+
+      @GetMapping(path = "getAll/{hotel_id}/{check_in_date}")
+      public ResponseEntity<List<Booking>> getAllRooms(@PathVariable("hotel_id") int hotel_id,
+                                                       @PathVariable("check_in_date") LocalDate date){
+            List<Booking> list=bs.getAllRoomsHotel(hotel_id,date);
+            if(list.isEmpty())
+                  return new ResponseEntity<>(list,HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(list,HttpStatus.OK);
+      }
+
+      @PutMapping(path = "/cancel/{booking_id}")
+      public ResponseEntity<String>  updateCancelled(@PathVariable("booking_id") int booking_id){
+            return new ResponseEntity<>(bs.update(booking_id),HttpStatus.OK);
+      }
+
+
+
+}
