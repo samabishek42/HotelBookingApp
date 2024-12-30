@@ -151,6 +151,3 @@ License
 This project is licensed under the MIT License.
 
 
-This version consolidates everything into a single README without splitting the sections. Let me know if you need any further changes!
-
-
