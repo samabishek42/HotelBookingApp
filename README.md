@@ -147,7 +147,5 @@ Admins can manage hotels, rooms, and bookings.
 Contributing
 Contributions are welcome! Please fork this repository and create a pull request for any enhancements or bug fixes.
 
-License
-This project is licensed under the MIT License.
 
 
