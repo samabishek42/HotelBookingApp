@@ -1,6 +1,7 @@
 package com.HavenHub.hotel_service.service;
 
 import com.HavenHub.hotel_service.DTO.HotelDTO;
+import com.HavenHub.hotel_service.DTO.SecondaryCache;
 import com.HavenHub.hotel_service.entity.Hotel;
 import com.HavenHub.hotel_service.repository.HotelRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class HotelService {
       @Autowired
       HotelRepo hr;
 
+      @Autowired
+      private SecondaryCache<String, List<Hotel>> hotelCache; // Correctly typed cache
+
 
       public String addHotel(HotelDTO hotel) {
             Hotel h=new Hotel(hotel.getName(), hotel.getRatings(),hotel.getAddress(),
@@ -24,9 +28,23 @@ public class HotelService {
             return h.getName();
       }
 
+
       public List<Hotel> getHotels() {
-            return hr.findAll();
+            String cacheKey = "hotels";
+
+            // Check secondary cache
+            List<Hotel> cachedHotels = hotelCache.get(cacheKey);
+            if (cachedHotels != null) {
+                  return cachedHotels; // Return cached data
+            }
+
+            // Fetch from database and update cache
+            List<Hotel> hotels = hr.findAll();
+            hotelCache.put(cacheKey, hotels);
+
+            return hotels;
       }
+
 
       public Hotel getOnId(int id) {
             return hr.findById(id);
