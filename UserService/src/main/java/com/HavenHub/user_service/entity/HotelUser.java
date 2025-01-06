@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "user")
 @Data
@@ -32,6 +34,7 @@ public class HotelUser {
 
       @Column(name = "photo")
       private String photo;
+
 
       // No reference to Booking entity
       public HotelUser(String name, String email, String password, String mobile, String type, String photo) {

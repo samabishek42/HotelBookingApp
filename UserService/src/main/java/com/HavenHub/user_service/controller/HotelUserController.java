@@ -1,11 +1,12 @@
 package com.HavenHub.user_service.controller;
 
-import com.HavenHub.user_service.DTO.HotelUserDTO;
 import com.HavenHub.user_service.entity.HotelUser;
 import com.HavenHub.user_service.repository.HotelUserRepo;
+import com.HavenHub.user_service.Feign.NotificationRepo;
 import com.HavenHub.user_service.service.HotelUserService;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+
 
 
 @RestController
@@ -32,15 +31,40 @@ public class HotelUserController {
 
       @Autowired
       HttpSession session;
+      // Assuming you're using an email validation service API like ZeroBounce, etc.
+
+
+      @Autowired
+      private NotificationRepo notificationRepo;
+
+      // Twilio credentials from your dashboard
+      public static final String ACCOUNT_SID = "AC340bbd34c29132b914e8f013f3037da4"; // Replace with your Account SID
+      public static final String AUTH_TOKEN = "49f45c04a9b233194136b4f10c8192ea";   // Replace with your Auth Token
+
+
+      private static final Logger logger = LoggerFactory.getLogger(HotelUserController.class);
 
       @PostMapping("/registerUser")
-      public ResponseEntity<String> saveUser(@RequestBody HotelUser user){
-            if (us.addUser(user).equals("conflict"))
+      public ResponseEntity<String> saveUser(@RequestBody HotelUser user) {
+
+            // Check if the email exists in DB
+            HotelUser existingUser = ur.findByEmail(user.getEmail());
+            if (existingUser != null) {
+                  logger.error("Email exists");
                   return new ResponseEntity<>("Email already exists in DB", HttpStatus.CONFLICT);
+            }
 
-            return new ResponseEntity<>(us.addUser(user), HttpStatus.OK);
+            // Log the user object before sending to Notification Service
+            logger.info("User being sent to Notification Service: {}", user);
+            String s=us.addUser(user);
+
+            try {
+                  notificationRepo.save(ur.findByEmail(user.getEmail()));
+            } catch (Exception e) {
+                  logger.error(e.getMessage());
+            }
+            return new ResponseEntity<> (s, HttpStatus.OK);
       }
-
 
       @PostMapping("/save")
       public ResponseEntity<String> saveUser(
@@ -80,6 +104,7 @@ public class HotelUserController {
             return new ResponseEntity<>(us.addUser(user), HttpStatus.OK);
 
       }
+
 
       @PostMapping("/registerAdmin")
       public ResponseEntity<String> saveAdmin(@RequestBody HotelUser user){
@@ -182,4 +207,5 @@ public class HotelUserController {
             System.out.println(h);
             return new ResponseEntity<>(h, HttpStatus.OK);
       }
+
 }

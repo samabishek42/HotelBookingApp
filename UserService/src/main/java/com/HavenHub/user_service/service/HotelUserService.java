@@ -11,6 +11,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
+
 
 @Service
 public class HotelUserService {
@@ -18,8 +21,6 @@ public class HotelUserService {
       @Autowired
       HotelUserRepo ur;
 
-//      @Autowired
-//      AuthenticationManager authenticationManager;
 
       @Autowired
       private PasswordEncoder passwordEncoder;
