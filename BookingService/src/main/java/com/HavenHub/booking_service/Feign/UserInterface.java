@@ -13,10 +13,12 @@ public interface UserInterface {
 
 
       @GetMapping("api/v1/user/getByEmail/{email}")
-      public ResponseEntity<HotelUser> getByEmail(@PathVariable("email") String email);
+      ResponseEntity<HotelUser> getByEmail(@PathVariable("email") String email);
 
       @GetMapping("api/v1/user/getByName/{name}")
-      public ResponseEntity<HotelUser> getByName(@PathVariable("name") String name);
+      ResponseEntity<HotelUser> getByName(@PathVariable("name") String name);
 
+      @GetMapping("api/v1/user/getOne/{id}")
+      ResponseEntity<HotelUser> getOne(@PathVariable("id") int id);
 
 }
