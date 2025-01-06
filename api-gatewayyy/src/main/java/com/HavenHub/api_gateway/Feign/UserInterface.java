@@ -34,7 +34,6 @@ public interface UserInterface {
               @RequestParam("type") String type,
               @RequestParam(value = "photo", required = false) String photoPath);
 
-
       @PostMapping("/api/v1/user/registerUser")
       ResponseEntity<String> registerUser(@RequestBody HotelUser user);
 

@@ -19,9 +19,9 @@ public class BookingController {
       @Autowired
       BookingInterface bs;
 
-      @PostMapping(path="/save")
-      public ResponseEntity<String> saveBooking(@RequestBody Booking booking){
-            return bs.saveBooking(booking);
+      @PostMapping(path="/save/{user_id}")
+      public ResponseEntity<String> saveBooking(@RequestBody Booking booking, @PathVariable("user_id") int user_id){
+            return bs.saveBooking(booking,user_id);
       }
 
       @GetMapping(path = "/getOne/{user_id}")
@@ -35,9 +35,9 @@ public class BookingController {
             return bs.getAllRooms(hotel_id,date);
       }
 
-      @PutMapping(path = "/cancel/{booking_id}")
-      public ResponseEntity<String>  updateCancelled(@PathVariable("booking_id") int booking_id){
-            return bs.updateCancelled(booking_id);
+      @PutMapping(path = "/cancel/{booking_id}/{user_id}")
+      public ResponseEntity<String>  updateCancelled(@PathVariable("booking_id") int booking_id, @PathVariable("user_id") int user_id){
+            return bs.updateCancelled(booking_id,user_id);
       }
 
 

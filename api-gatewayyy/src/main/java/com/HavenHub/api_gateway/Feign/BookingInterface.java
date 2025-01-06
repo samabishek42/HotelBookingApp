@@ -11,8 +11,8 @@ import java.util.List;
 @FeignClient("BOOKING-SERVICE")
 public interface BookingInterface {
 
-      @PostMapping("/api/v1/booking/save")
-      ResponseEntity<String> saveBooking(@RequestBody Booking booking);
+      @PostMapping("/api/v1/booking/save/{user_id}")
+      ResponseEntity<String>  saveBooking(@RequestBody Booking booking, @PathVariable("user_id") int user_id);
 
       @GetMapping("/api/v1/booking/getOne/{user_id}")
       ResponseEntity<List<Booking>> getBookedRoomsByUser(@PathVariable("user_id") int userId);
@@ -23,6 +23,6 @@ public interface BookingInterface {
               @PathVariable("check_in_date") LocalDate date
       );
 
-      @PutMapping("/api/v1/booking/cancel/{booking_id}")
-      ResponseEntity<String> updateCancelled(@PathVariable("booking_id") int bookingId);
+      @PutMapping("/api/v1/booking/cancel/{booking_id}/{user_id}")
+      ResponseEntity<String> updateCancelled(@PathVariable("booking_id") int bookingId, @PathVariable("user_id") int user_id);
 }
