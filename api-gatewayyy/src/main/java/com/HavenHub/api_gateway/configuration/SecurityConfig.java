@@ -1,5 +1,6 @@
 package com.HavenHub.api_gateway.configuration;
 
+import com.HavenHub.api_gateway.Feign.NotificationInterface;
 import com.HavenHub.api_gateway.Feign.UserInterface;
 import com.HavenHub.api_gateway.entity.HotelUser;
 import com.HavenHub.api_gateway.service.JWTService;
@@ -39,6 +40,9 @@ public class SecurityConfig {
       UserDetailsService userDetailsService;
 
       @Autowired
+      NotificationInterface notificationInterface;
+
+      @Autowired
       JWTFilter jwtFilter;
 
       @Autowired
@@ -72,26 +76,33 @@ public class SecurityConfig {
                                   String email = (String) attributes.get("email");
                                   String name = (String) attributes.get("name");
                                   String pictureUrl = (String) attributes.get("picture");
-                                  String token = jwtService.generateToken(name);
 
-                                  // Prepare the response map
-                                  Map<String, Object> responseBody = new HashMap<>();
-                                  responseBody.put("token", token);
-                                  responseBody.put("role", "OAuth");
-                                  responseBody.put("name", name);
-                                  responseBody.put("email", email);
-                                  responseBody.put("photo", pictureUrl);
-                                  HotelUser user = ur.getByEmail(email).getBody();
-                                  if (user != null) {
-                                        responseBody.put("role", "user");
-                                        responseBody.put("userId", String.valueOf(user.getId()));
-                                        responseBody.put("token", jwtService.generateToken(user.getName()));
-                                        responseBody.put("name", user.getName());
+
+                                  String userId = "";
+                                  String role = "";
+                                  if (ur.getByEmail(email)== null) {
+                                        HotelUser u=new HotelUser();
+                                        u.setEmail(email);
+                                        u.setType("oauth");
+                                        u.setName(name);
+                                        u.setPhoto(pictureUrl);
+                                        notificationInterface.save(u);
+                                        ur.saveOAUth(u);
                                   }
-                                  // Write the map as JSON response
-                                  response.setContentType("application/json");
-                                  response.getWriter().write(new ObjectMapper().writeValueAsString(responseBody));
-                                  response.setStatus(HttpServletResponse.SC_OK);
+
+                                  HotelUser user = ur.getByEmail(email);
+                                  name=user.getName();
+                                  String token=jwtService.generateToken(name);
+                                  userId = String.valueOf(user.getId());
+
+                                  // Construct redirect URL with parameters
+                                  String redirectUrl = String.format(
+                                          "http://localhost:3000/oauth2/redirect?token=%s&userId=%s",
+                                          token, userId
+                                  );
+
+                                  // Redirect to the constructed URL
+                                  response.sendRedirect(redirectUrl);
                             })
                             .failureHandler((request, response, exception) -> {
                                   response.setContentType("application/json");

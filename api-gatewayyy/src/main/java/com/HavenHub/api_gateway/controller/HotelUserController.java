@@ -122,7 +122,7 @@ public class HotelUserController {
             Map<String, String> response = new HashMap<>();
             HotelUser u=null;
             if (authentication.isAuthenticated()) {
-                 u = ur.getByEmail(user.getEmail()).getBody();
+                 u = ur.getByEmail(user.getEmail());
                   if (u == null) {
                         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
                   }

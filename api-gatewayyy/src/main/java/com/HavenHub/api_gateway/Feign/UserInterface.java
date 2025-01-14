@@ -11,7 +11,7 @@ import java.util.Map;
 public interface UserInterface {
 
       @GetMapping("/api/v1/user/getByEmail/{email}")
-      ResponseEntity<HotelUser> getByEmail(@PathVariable("email") String email);
+      HotelUser getByEmail(@PathVariable("email") String email);
 
       @GetMapping("/api/v1/user/getByName/{name}")
       ResponseEntity<HotelUser> getByName(@PathVariable("name") String name);
@@ -45,4 +45,8 @@ public interface UserInterface {
 
       @GetMapping("/api/v1/user/getOne/{id}")
       ResponseEntity<HotelUser> getOne(@PathVariable("id") int id);
+
+      @PostMapping("/api/v1/user/registerOAuth")
+      ResponseEntity<String> saveOAUth(@RequestBody HotelUser user);
+
 }

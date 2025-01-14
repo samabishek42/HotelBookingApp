@@ -28,7 +28,7 @@ public class MyUserDetailsService implements UserDetailsService {
             // Determine if identifier is an email or username
             if (identifier.contains("@")) { // Assume email if '@' is present
                   logger.info("Email method called");
-                  user = ur.getByEmail(identifier).getBody();
+                  user = ur.getByEmail(identifier);
             } else {
                   logger.info("Name method called");
                   user = ur.getByName(identifier).getBody();
