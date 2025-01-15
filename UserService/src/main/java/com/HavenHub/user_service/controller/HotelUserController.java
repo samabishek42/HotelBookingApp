@@ -2,7 +2,7 @@ package com.HavenHub.user_service.controller;
 
 import com.HavenHub.user_service.entity.HotelUser;
 import com.HavenHub.user_service.repository.HotelUserRepo;
-import com.HavenHub.user_service.Feign.NotificationRepo;
+import com.HavenHub.user_service.Feign.NotificationInterface;
 import com.HavenHub.user_service.service.HotelUserService;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-
 
 
 @RestController
@@ -35,7 +34,7 @@ public class HotelUserController {
 
 
       @Autowired
-      private NotificationRepo notificationRepo;
+      private NotificationInterface notificationInterface;
 
       // Twilio credentials from your dashboard
       public static final String ACCOUNT_SID = "AC340bbd34c29132b914e8f013f3037da4"; // Replace with your Account SID
@@ -48,24 +47,32 @@ public class HotelUserController {
       public ResponseEntity<String> saveUser(@RequestBody HotelUser user) {
 
             // Check if the email exists in DB
-            HotelUser existingUser = ur.findByEmail(user.getEmail());
-            if (existingUser != null) {
+            String s = us.addUser(user);
+            if (s.equals("conflict")) {
                   logger.error("Email exists");
                   return new ResponseEntity<>("Email already exists in DB", HttpStatus.CONFLICT);
             }
 
+           if (s.equals("oauth"))
+                  return new ResponseEntity<>(s, HttpStatus.OK);
+
             // Log the user object before sending to Notification Service
             logger.info("User being sent to Notification Service: {}", user);
-            String s=us.addUser(user);
 
             try {
-                  notificationRepo.save(ur.findByEmail(user.getEmail()));
+                  notificationInterface.save(ur.findByEmail(user.getEmail()));
             } catch (Exception e) {
                   logger.error(e.getMessage());
             }
-            return new ResponseEntity<> (s, HttpStatus.OK);
+            return new ResponseEntity<>(s, HttpStatus.OK);
       }
 
+      @PostMapping("/registerOAuth")
+      public ResponseEntity<String> saveOAUth(@RequestBody HotelUser user) {
+            ur.save(user);
+            logger.info("OAuth User saved");
+            return new ResponseEntity<>(user.getName(),HttpStatus.OK);
+      }
       @PostMapping("/save")
       public ResponseEntity<String> saveUser(
               @RequestParam("name") String name,
@@ -107,14 +114,12 @@ public class HotelUserController {
 
 
       @PostMapping("/registerAdmin")
-      public ResponseEntity<String> saveAdmin(@RequestBody HotelUser user){
+      public ResponseEntity<String> saveAdmin(@RequestBody HotelUser user) {
             if (us.addAdmin(user).equals("conflict"))
                   return new ResponseEntity<>("Email already exists in DB", HttpStatus.CONFLICT);
 
             return new ResponseEntity<>(us.addUser(user), HttpStatus.OK);
       }
-
-
 
 
       @PostMapping(path = "/saveAdmin")
@@ -185,19 +190,19 @@ public class HotelUserController {
       }
 
       @GetMapping("/getByEmail/{email}")
-      public ResponseEntity<HotelUser> getByEmail(@PathVariable("email") String email){
+      public HotelUser getByEmail(@PathVariable("email") String email) {
             HotelUser h = us.getByEmail(email);
             if (h == null) {
                   // new ResponseEntity<>(null, new HttpStatus(404));//IT IS ALSO SAME LIKE BELOW ONE
                   System.out.println("No such user is present");
-                  return new ResponseEntity<>(null, HttpStatus.valueOf(404));//NOT FOUND
+                  return null;//NOT FOUND
             }
             System.out.println(h);
-            return new ResponseEntity<>(h, HttpStatus.OK);
+            return h;
       }
 
       @GetMapping("/getByName/{name}")
-      public ResponseEntity<HotelUser> getByName(@PathVariable("name") String name){
+      public ResponseEntity<HotelUser> getByName(@PathVariable("name") String name) {
             HotelUser h = us.getByName(name);
             if (h == null) {
                   // new ResponseEntity<>(null, new HttpStatus(404));//IT IS ALSO SAME LIKE BELOW ONE

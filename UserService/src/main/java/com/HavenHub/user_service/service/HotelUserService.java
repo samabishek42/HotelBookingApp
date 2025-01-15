@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -29,8 +30,17 @@ public class HotelUserService {
       private JWTService jwt;
 
       public String addUser(HotelUser user) {
-            if(ur.findByEmail(user.getEmail())!=null)
+            HotelUser user1=ur.findByEmail(user.getEmail());
+            if(user1!=null && user1.getType().equals( "user"))
                   return "conflict";
+            else if(user1!=null){
+                  user1.setPassword(passwordEncoder.encode(user.getPassword()));
+                  user1.setMobile(user.getMobile());
+                  user1.setName(user.getName());
+                  user1.setType("user");
+                  ur.save(user1);
+                  return  "oauth";
+            }
             user.setType("user");
             String encodedPassword = passwordEncoder.encode(user.getPassword());
             user.setPassword(encodedPassword);
