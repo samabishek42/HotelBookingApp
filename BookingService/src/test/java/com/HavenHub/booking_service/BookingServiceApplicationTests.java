@@ -46,10 +46,10 @@ class BookingServiceApplicationTests {
 		when(bookingRepo.save(any(Booking.class))).thenReturn(booking);
 
 		// Act
-		String result = bookingService.addBooking(bookingDTO);
+		Booking b= bookingService.addBooking(bookingDTO);
 
 		// Assert
-		assertEquals("Successfully Booked", result);
+		assertEquals(booking, b);
 		verify(bookingRepo, times(1)).save(any(Booking.class));
 	}
 
@@ -84,10 +84,10 @@ class BookingServiceApplicationTests {
 		when(bookingRepo.save(any(Booking.class))).thenReturn(booking);
 
 		// Act
-		String result = bookingService.update(1);
+	Booking b= bookingService.update(1);
 
 		// Assert
-		assertEquals("Successfully Cancelled", result);
+		assertEquals(booking, b);
 		assertEquals("cancelled", booking.getStatus());
 		verify(bookingRepo, times(1)).findByBooking_id(1);
 		verify(bookingRepo, times(1)).save(booking);
