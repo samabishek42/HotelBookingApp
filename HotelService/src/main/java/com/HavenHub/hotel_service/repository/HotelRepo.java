@@ -1,5 +1,6 @@
 package com.HavenHub.hotel_service.repository;
 
+import com.HavenHub.hotel_service.DTO.SecondaryCache;
 import com.HavenHub.hotel_service.entity.Hotel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -15,4 +16,5 @@ public interface HotelRepo extends JpaRepository<Hotel,Integer> {
 
       List<Hotel> findByCity(String city);
 
+      Hotel findByName(String name);
 }
