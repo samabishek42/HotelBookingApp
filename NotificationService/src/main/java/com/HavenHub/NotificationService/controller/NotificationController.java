@@ -1,6 +1,6 @@
 package com.HavenHub.NotificationService.controller;
 
-import com.HavenHub.NotificationService.configuration.Feign.UserInterface;
+import com.HavenHub.NotificationService.Feign.UserInterface;
 import com.HavenHub.NotificationService.entity.Booking;
 import com.HavenHub.NotificationService.entity.HotelUser;
 import com.HavenHub.NotificationService.entity.NotificationRequest;
@@ -107,11 +107,14 @@ public class NotificationController {
             String emailBody = String.format(
                     "Dear %s,\n\n"
                             + "🎉 Thank you for choosing HavenHub! 🏨 Your hotel booking has been successfully confirmed ✅.\n\n"
+                            + "Here are your booking details:\n"
+                            + "📅 Check-in Date: %s\n\n"
                             + "We’re excited to help make your travel experience seamless and unforgettable. ✈️✨ Start planning your stay, and if you need assistance, feel free to reach out at 📧 havenhub657@gmail.com.\n\n"
                             + "🌟 Wishing you a fantastic stay ahead!\n\n"
                             + "Warm regards, 💖\n"
                             + "The HavenHub Team 🌐",
-                    user.getName()
+                    user.getName(),
+                    booking.getCheckInDate() // Assuming `checkInDate` is a `String` or has a proper `toString` method
             );
 
 
