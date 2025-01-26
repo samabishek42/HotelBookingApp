@@ -3,9 +3,6 @@
 A microservices-based hotel booking application providing seamless user experiences for searching hotels, booking reservations, and managing hotel data.  
 
 ## Features  
-- **JWT Authentication & OAuth2 Integration** for secure login.  
-- Role-based access control for users and admins.  
-# Features
 
 - **JWT Authentication & OAuth2 Integration**  
   Secure login system with JWT tokens for stateless session management and OAuth2 integration for third-party authentication (e.g., Google, Facebook).
