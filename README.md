@@ -11,7 +11,8 @@ A microservices-based hotel booking application providing seamless user experien
   - **Hotel Service**: Manages hotel details.  
   - **Room Service**: Manages room details.  
   - **Booking Service**: Handles booking operations.  
-  - **Notification Service** for booking confirmations and cancellations remainder asynchronously through emails and SMS.  
+  - **Notification Service** for booking confirmations and cancellations remainder asynchronously through emails and SMS.
+-Custom Caching using ConcurrentHashMap for storing frequently accessed data in memory, reducing load on the backend services and improving performance    
 - Frontend built using **React.js**.  
 
 ---
