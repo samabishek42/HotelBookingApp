@@ -14,8 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -86,34 +85,40 @@ public class HotelController {
 
       @GetMapping(path = "/getAllHotels")
       @CircuitBreaker(name = "default", fallbackMethod = "getAllHotelsFallback")
-      @TimeLimiter(name = "default")
-      public CompletableFuture<ResponseEntity<List<Hotel>>> getAllHotels() throws Exception {
+      public ResponseEntity<List<Hotel>> getAllHotels() throws Exception {
             // Asynchronously call the service and apply a timeout
-            return CompletableFuture.supplyAsync(() -> hs.getAllHotels())
-                    .orTimeout(6, TimeUnit.SECONDS) // Cancel task after 6 seconds
-                    .exceptionally(ex -> {
-                          // Log timeout exception
-                          System.err.println("Timeout occurred. Returning fallback response. Error: " + ex.getMessage());
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            Future<ResponseEntity<List<Hotel>>> future = executor.submit(() -> hs.getAllHotels());
 
-                          throw new RuntimeException("Timeout occurred", ex);
-
-                    });
+            try {
+                  // Set timeout for the synchronous method call
+                  return future.get(6, TimeUnit.SECONDS);
+            } catch (Exception e) {
+                  System.err.println("Error occurred: " + e.getMessage());
+                  throw  new RuntimeException();
+            }
       }
 
       // Fallback Method
-      public CompletableFuture<ResponseEntity<List<Hotel>>> getAllHotelsFallback(Exception e) {
-            // Asynchronously call the service and apply a timeout
-            return CompletableFuture.supplyAsync(() -> hs.getAllHotels())
-                    .orTimeout(6, TimeUnit.SECONDS) // Cancel task after 6 seconds
-                    .exceptionally(ex -> {
-                          // Log timeout exception
-                          System.err.println("Timeout occurred. Returning fallback response. Error: " + ex.getMessage());
+      public ResponseEntity<List<Hotel>> getAllHotelsFallback(Exception e) {
 
-                          // Return fallback response immediately
-                          return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
-                                  .body(Collections.emptyList());
-                    });
+            try {
+                  Thread.sleep(1000);
+                  ExecutorService executor = Executors.newSingleThreadExecutor();
+                  Future<ResponseEntity<List<Hotel>>> future = executor.submit(() -> hs.getAllHotels());
+
+                  // Set timeout for the synchronous method call
+                  return future.get(4, TimeUnit.SECONDS);
+            } catch (Exception ex) {
+                  System.err.println("Error occurred: " + ex.getMessage());
+                  // Return fallback response immediately
+                  return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                          .body(Collections.emptyList());
+            }
+
+
       }
+
 
       @GetMapping(path = "/getOne/{id}")
       public ResponseEntity<Hotel> getHotel(@PathVariable("id") int id) {
@@ -139,8 +144,36 @@ public class HotelController {
 
 
 
-
-
+//
+//@GetMapping(path = "/getAllHotels")
+//@CircuitBreaker(name = "default", fallbackMethod = "getAllHotelsFallback")
+//public CompletableFuture<ResponseEntity<List<Hotel>>> getAllHotels() throws Exception {
+//      // Asynchronously call the service and apply a timeout
+//      return CompletableFuture.supplyAsync(() -> hs.getAllHotels())
+//              .orTimeout(6, TimeUnit.SECONDS) // Cancel task after 6 seconds
+//              .exceptionally(ex -> {
+//                    // Log timeout exception
+//                    System.err.println("Timeout occurred. Returning fallback response. Error: " + ex.getMessage());
+//
+//                    throw new RuntimeException("Timeout occurred", ex);
+//
+//              });
+//}
+//
+//// Fallback Method
+//public CompletableFuture<ResponseEntity<List<Hotel>>> getAllHotelsFallback(Exception e) {
+//      // Asynchronously call the service and apply a timeout
+//      return CompletableFuture.supplyAsync(() -> hs.getAllHotels())
+//              .orTimeout(6, TimeUnit.SECONDS) // Cancel task after 6 seconds
+//              .exceptionally(ex -> {
+//                    // Log timeout exception
+//                    System.err.println("Timeout occurred. Returning fallback response. Error: " + ex.getMessage());
+//
+//                    // Return fallback response immediately
+//                    return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+//                            .body(Collections.emptyList());
+//              });
+//}
 
 
 
