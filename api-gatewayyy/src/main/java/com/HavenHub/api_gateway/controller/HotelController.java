@@ -103,7 +103,6 @@ public class HotelController {
       public ResponseEntity<List<Hotel>> getAllHotelsFallback(Exception e) {
 
             try {
-                  Thread.sleep(1000);
                   ExecutorService executor = Executors.newSingleThreadExecutor();
                   Future<ResponseEntity<List<Hotel>>> future = executor.submit(() -> hs.getAllHotels());
 
