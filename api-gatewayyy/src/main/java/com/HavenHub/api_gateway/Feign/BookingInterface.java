@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@FeignClient("BOOKING-SERVICE")
+@FeignClient(name="BOOKING-SERVICE")
 public interface BookingInterface {
 
       @PostMapping("/api/v1/booking/save/{user_id}")

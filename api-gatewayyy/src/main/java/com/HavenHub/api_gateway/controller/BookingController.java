@@ -2,6 +2,7 @@ package com.HavenHub.api_gateway.controller;
 
 import com.HavenHub.api_gateway.Feign.BookingInterface;
 import com.HavenHub.api_gateway.entity.Booking;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +19,6 @@ public class BookingController {
 
       @Autowired
       BookingInterface bs;
-
-      @PostMapping(path="/save/{user_id}")
-      public ResponseEntity<String> saveBooking(@RequestBody Booking booking, @PathVariable("user_id") int user_id){
-            return bs.saveBooking(booking,user_id);
-      }
 
       @GetMapping(path = "/getOne/{user_id}")
       public ResponseEntity<List<Booking>> getBookedRoomsByUser(@PathVariable("user_id") int user_id){

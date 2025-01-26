@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-@FeignClient("USER-SERVICE")
+@FeignClient(name="USER-SERVICE")
 public interface UserInterface {
 
       @GetMapping("/api/v1/user/getByEmail/{email}")

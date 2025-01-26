@@ -1,5 +1,6 @@
 package com.HavenHub.api_gateway.Feign;
 
+
 import com.HavenHub.api_gateway.entity.Rooms;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -7,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient("ROOMS-SERVICE")
+@FeignClient(name="ROOMS-SERVICE")
 public interface RoomsInterface {
 
       @PostMapping("/api/v1/rooms/save")
@@ -22,4 +23,5 @@ public interface RoomsInterface {
 
       @GetMapping("/api/v1/rooms/getAllRooms/{hotel_id}")
       ResponseEntity<List<Rooms>> getAllRooms(@PathVariable("hotel_id") int hotelId);
+
 }
