@@ -5,16 +5,39 @@ A microservices-based hotel booking application providing seamless user experien
 ## Features  
 - **JWT Authentication & OAuth2 Integration** for secure login.  
 - Role-based access control for users and admins.  
-- RESTful APIs for managing users, hotels, rooms, and bookings.  
-- Microservices architecture with decoupled services:  
-  - **User Service**: Manages user information.  
-  - **Hotel Service**: Manages hotel details.  
-  - **Room Service**: Manages room details.  
-  - **Booking Service**: Handles booking operations.  
-  - **Notification Service** for booking confirmations and cancellations remainder asynchronously through emails and SMS.
--Custom Caching using ConcurrentHashMap for storing frequently accessed data in memory, reducing load on the backend services and improving performance    
-- Frontend built using **React.js**.  
+# Features
 
+- **JWT Authentication & OAuth2 Integration**  
+  Secure login system with JWT tokens for stateless session management and OAuth2 integration for third-party authentication (e.g., Google, Facebook).
+
+- **Role-Based Access Control**  
+  Ensures different access levels for users and admins, providing distinct interfaces and functionalities based on user roles.
+
+- **RESTful APIs**  
+  Comprehensive APIs for managing:
+  - Users
+  - Hotels
+  - Rooms
+  - Bookings
+  - Notifications
+
+- **Microservices Architecture**  
+  Decoupled services for better scalability and maintainability:
+  - **User Service**: Handles user information (e.g., registration, login, and profile management).
+  - **Hotel Service**: Manages hotel data (e.g., hotel details, ratings, and features).
+  - **Room Service**: Responsible for managing room availability, details, and pricing.
+  - **Booking Service**: Manages booking operations, including booking creation and cancellation.
+  - **Notification Service**: Sends booking confirmations and cancellation reminders via email and SMS asynchronously.
+
+- **Circuit Breakers**  
+  Implemented circuit breakers to ensure resilience and prevent cascading failures between microservices. These break the circuit and prevent calls to failing services, maintaining overall system stability.
+
+- **Custom Caching with `ConcurrentHashMap`**  
+  A custom caching mechanism using `ConcurrentHashMap` to store frequently accessed data in-memory. This reduces load on backend services and enhances performance by minimizing database or external service calls.
+
+- **Frontend Built with React.js**  
+  Dynamic and responsive user interface developed using React.js, providing an interactive and modern user experience.
+  
 ---
 
 ## Technologies Used  
