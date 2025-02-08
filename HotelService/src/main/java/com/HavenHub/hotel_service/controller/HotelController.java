@@ -61,7 +61,7 @@ public class HotelController {
 
 
       @GetMapping(path="/getAllHotels")
-      public ResponseEntity<List<Hotel>> getAllHotels(){
+      public ResponseEntity<List<Hotel>> getAllHotels() throws Exception { 
             List<Hotel> list=hs.getHotels();
             if(list.isEmpty())
                   return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

@@ -4,11 +4,15 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "hotel")
 @Data
 @NoArgsConstructor
-public class Hotel {
+public class Hotel implements Serializable {
+
+       private static final long serialVersionUID = 1L;
 
       @Id
       @GeneratedValue(strategy = GenerationType.AUTO)
