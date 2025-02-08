@@ -2,6 +2,7 @@ package com.HavenHub.api_gateway.controller;
 
 import com.HavenHub.api_gateway.Feign.RoomsInterface;
 import com.HavenHub.api_gateway.entity.Rooms;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -74,9 +77,32 @@ public class RoomsController {
       }
 
 
-      @GetMapping(path="getAllRooms/{hotel_id}")
-      public ResponseEntity<List<Rooms>> getAllHotels(@PathVariable("hotel_id") int  hotel_id){
-            return rs.getAllRooms(hotel_id);
+      @GetMapping(path = "getAllRooms/{hotel_id}")
+      @CircuitBreaker(name = "getAllRoomsService", fallbackMethod = "getAllRoomsFallback")
+      public ResponseEntity<List<Rooms>> getAllRooms(@PathVariable("hotel_id") int hotel_id) throws Exception {
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            Future<ResponseEntity<List<Rooms>>> future = executor.submit(() -> rs.getAllRooms(hotel_id));
+
+            try {
+                  return future.get(10, TimeUnit.SECONDS);  // Timeout after 6 seconds
+            } catch (Exception e) {
+                  System.err.println("Timeout or error occurred: " + e.getMessage());
+                  throw e;
+            }
       }
+
+      // Fallback Method for getAllRooms
+      public ResponseEntity<List<Rooms>> getAllRoomsFallback( @PathVariable("hotel_id") int hotel_id,Throwable e) {
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            Future<ResponseEntity<List<Rooms>>> future = executor.submit(() -> rs.getAllRooms(hotel_id));
+
+            try {
+                  return future.get(10, TimeUnit.SECONDS);  // Timeout after 6 seconds
+            } catch (Exception ex) {
+                  System.err.println("Timeout or error occurred in fallback: " + ex.getMessage());
+                  return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(Collections.emptyList());
+            }
+      }
+
 
 }

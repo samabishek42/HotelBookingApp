@@ -92,22 +92,22 @@ public class HotelController {
 
             try {
                   // Set timeout for the synchronous method call
-                  return future.get(6, TimeUnit.SECONDS);
+                  return future.get(10, TimeUnit.SECONDS);
             } catch (Exception e) {
                   System.err.println("Error occurred: " + e.getMessage());
-                  throw  new RuntimeException();
+                  throw  e;
             }
       }
 
       // Fallback Method
-      public ResponseEntity<List<Hotel>> getAllHotelsFallback(Exception e) {
+      public ResponseEntity<List<Hotel>> getAllHotelsFallback(Throwable e) {
 
             try {
                   ExecutorService executor = Executors.newSingleThreadExecutor();
                   Future<ResponseEntity<List<Hotel>>> future = executor.submit(() -> hs.getAllHotels());
 
                   // Set timeout for the synchronous method call
-                  return future.get(4, TimeUnit.SECONDS);
+                  return future.get(10, TimeUnit.SECONDS);
             } catch (Exception ex) {
                   System.err.println("Error occurred: " + ex.getMessage());
                   // Return fallback response immediately
