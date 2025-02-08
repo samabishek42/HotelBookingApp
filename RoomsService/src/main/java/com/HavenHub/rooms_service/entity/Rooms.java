@@ -3,11 +3,17 @@ package com.HavenHub.rooms_service.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+
 @Entity
 @Table(name = "rooms")
 @Data
 @NoArgsConstructor
-public class Rooms {
+public class Rooms implements Serializable {
+
+      private static final long serialVersionUID = 2L;
+
 
       @Id
       @GeneratedValue(strategy = GenerationType.AUTO)
