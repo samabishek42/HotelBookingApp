@@ -61,4 +61,21 @@ public class Booking {
             this.totalAmount = totalAmount;
             this.payments = payments;
       }
+
+      @Override
+      public String toString() {
+            return "Booking{" +
+                    "booking_id=" + booking_id +
+                    ", user_id=" + user_id +
+                    ", hotel_id=" + hotel_id +
+                    ", single_room=" + single_room +
+                    ", double_room=" + double_room +
+                    ", bookingDate=" + bookingDate +
+                    ", checkInDate=" + checkInDate +
+                    ", checkOutDate=" + checkOutDate +
+                    ", status='" + status + '\'' +
+                    ", totalAmount=" + totalAmount +
+                    ", payments='" + payments + '\'' +
+                    '}';
+      }
 }
