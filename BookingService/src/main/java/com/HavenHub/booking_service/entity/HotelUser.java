@@ -17,5 +17,6 @@ public class HotelUser {
       private String type;
       private String photo;
 
+      
 
 }
